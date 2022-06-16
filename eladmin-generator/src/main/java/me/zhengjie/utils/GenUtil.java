@@ -1,4 +1,4 @@
-ï»¿/*
+/*
  *  Copyright 2019-2020 Zheng Jie
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ import java.util.*;
 import static me.zhengjie.utils.FileUtil.SYS_TEM_DIR;
 
 /**
- * ä»£ç ç”Ÿæˆ
+ * ´úÂëÉú³É
  *
  * @author Zheng Jie
  * @date 2019-01-02
@@ -50,7 +50,7 @@ public class GenUtil {
     public static final String EXTRA = "auto_increment";
 
     /**
-     * è·å–åç«¯ä»£ç æ¨¡æ¿åç§°
+     * »ñÈ¡ºó¶Ë´úÂëÄ£°åÃû³Æ
      *
      * @return List
      */
@@ -68,7 +68,7 @@ public class GenUtil {
     }
 
     /**
-     * è·å–å‰ç«¯ä»£ç æ¨¡æ¿åç§°
+     * »ñÈ¡Ç°¶Ë´úÂëÄ£°åÃû³Æ
      *
      * @return List
      */
@@ -82,7 +82,7 @@ public class GenUtil {
     public static List<Map<String, Object>> preview(List<ColumnInfo> columns, GenConfig genConfig) {
         Map<String, Object> genMap = getGenMap(columns, genConfig);
         List<Map<String, Object>> genList = new ArrayList<>();
-        // è·å–åç«¯æ¨¡ç‰ˆ
+        // »ñÈ¡ºó¶ËÄ£°æ
         List<String> templates = getAdminTemplateNames();
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
         for (String templateName : templates) {
@@ -92,7 +92,7 @@ public class GenUtil {
             map.put("name", templateName);
             genList.add(map);
         }
-        // è·å–å‰ç«¯æ¨¡ç‰ˆ
+        // »ñÈ¡Ç°¶ËÄ£°æ
         templates = getFrontTemplateNames();
         for (String templateName : templates) {
             Map<String, Object> map = new HashMap<>(1);
@@ -106,26 +106,26 @@ public class GenUtil {
     }
 
     public static String download(List<ColumnInfo> columns, GenConfig genConfig) throws IOException {
-        // æ‹¼æ¥çš„è·¯å¾„ï¼š/tmpeladmin-gen-temp/ï¼Œè¿™ä¸ªè·¯å¾„åœ¨Linuxä¸‹éœ€è¦rootç”¨æˆ·æ‰æœ‰æƒé™åˆ›å»º,érootç”¨æˆ·ä¼šæƒé™é”™è¯¯è€Œå¤±è´¥ï¼Œæ›´æ”¹ä¸ºï¼š /tmp/eladmin-gen-temp/
+        // Æ´½ÓµÄÂ·¾¶£º/tmpeladmin-gen-temp/£¬Õâ¸öÂ·¾¶ÔÚLinuxÏÂĞèÒªrootÓÃ»§²ÅÓĞÈ¨ÏŞ´´½¨,·ÇrootÓÃ»§»áÈ¨ÏŞ´íÎó¶øÊ§°Ü£¬¸ü¸ÄÎª£º /tmp/eladmin-gen-temp/
         // String tempPath =SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
         String tempPath = SYS_TEM_DIR + "eladmin-gen-temp" + File.separator + genConfig.getTableName() + File.separator;
         Map<String, Object> genMap = getGenMap(columns, genConfig);
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
-        // ç”Ÿæˆåç«¯ä»£ç 
+        // Éú³Éºó¶Ë´úÂë
         List<String> templates = getAdminTemplateNames();
         for (String templateName : templates) {
             Template template = engine.getTemplate("generator/admin/" + templateName + ".ftl");
             String filePath = getAdminFilePath(templateName, genConfig, genMap.get("className").toString(), tempPath + "eladmin" + File.separator);
             assert filePath != null;
             File file = new File(filePath);
-            // å¦‚æœéè¦†ç›–ç”Ÿæˆ
+            // Èç¹û·Ç¸²¸ÇÉú³É
             if (!genConfig.getCover() && FileUtil.exist(file)) {
                 continue;
             }
-            // ç”Ÿæˆä»£ç 
+            // Éú³É´úÂë
             genFile(file, template, genMap);
         }
-        // ç”Ÿæˆå‰ç«¯ä»£ç 
+        // Éú³ÉÇ°¶Ë´úÂë
         templates = getFrontTemplateNames();
         for (String templateName : templates) {
             Template template = engine.getTemplate("generator/front/" + templateName + ".ftl");
@@ -135,11 +135,11 @@ public class GenUtil {
             String filePath = getFrontFilePath(templateName, apiPath, srcPath, genMap.get("changeClassName").toString());
             assert filePath != null;
             File file = new File(filePath);
-            // å¦‚æœéè¦†ç›–ç”Ÿæˆ
+            // Èç¹û·Ç¸²¸ÇÉú³É
             if (!genConfig.getCover() && FileUtil.exist(file)) {
                 continue;
             }
-            // ç”Ÿæˆä»£ç 
+            // Éú³É´úÂë
             genFile(file, template, genMap);
         }
         return tempPath;
@@ -148,7 +148,7 @@ public class GenUtil {
     public static void generatorCode(List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
         Map<String, Object> genMap = getGenMap(columnInfos, genConfig);
         TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
-        // ç”Ÿæˆåç«¯ä»£ç 
+        // Éú³Éºó¶Ë´úÂë
         List<String> templates = getAdminTemplateNames();
         for (String templateName : templates) {
             Template template = engine.getTemplate("generator/admin/" + templateName + ".ftl");
@@ -158,15 +158,15 @@ public class GenUtil {
             assert filePath != null;
             File file = new File(filePath);
 
-            // å¦‚æœéè¦†ç›–ç”Ÿæˆ
+            // Èç¹û·Ç¸²¸ÇÉú³É
             if (!genConfig.getCover() && FileUtil.exist(file)) {
                 continue;
             }
-            // ç”Ÿæˆä»£ç 
+            // Éú³É´úÂë
             genFile(file, template, genMap);
         }
 
-        // ç”Ÿæˆå‰ç«¯ä»£ç 
+        // Éú³ÉÇ°¶Ë´úÂë
         templates = getFrontTemplateNames();
         for (String templateName : templates) {
             Template template = engine.getTemplate("generator/front/" + templateName + ".ftl");
@@ -175,177 +175,177 @@ public class GenUtil {
             assert filePath != null;
             File file = new File(filePath);
 
-            // å¦‚æœéè¦†ç›–ç”Ÿæˆ
+            // Èç¹û·Ç¸²¸ÇÉú³É
             if (!genConfig.getCover() && FileUtil.exist(file)) {
                 continue;
             }
-            // ç”Ÿæˆä»£ç 
+            // Éú³É´úÂë
             genFile(file, template, genMap);
         }
     }
 
-    // è·å–æ¨¡ç‰ˆæ•°æ®
+    // »ñÈ¡Ä£°æÊı¾İ
     private static Map<String, Object> getGenMap(List<ColumnInfo> columnInfos, GenConfig genConfig) {
-        // å­˜å‚¨æ¨¡ç‰ˆå­—æ®µæ•°æ®
+        // ´æ´¢Ä£°æ×Ö¶ÎÊı¾İ
         Map<String, Object> genMap = new HashMap<>(16);
-        // æ¥å£åˆ«å
+        // ½Ó¿Ú±ğÃû
         genMap.put("apiAlias", genConfig.getApiAlias());
-        // åŒ…åç§°
+        // °üÃû³Æ
         genMap.put("package", genConfig.getPack());
-        // æ¨¡å—åç§°
+        // Ä£¿éÃû³Æ
         genMap.put("moduleName", genConfig.getModuleName());
-        // ä½œè€…
+        // ×÷Õß
         genMap.put("author", genConfig.getAuthor());
-        // åˆ›å»ºæ—¥æœŸ
+        // ´´½¨ÈÕÆÚ
         genMap.put("date", LocalDate.now().toString());
-        // è¡¨å
+        // ±íÃû
         genMap.put("tableName", genConfig.getTableName());
-        // å¤§å†™å¼€å¤´çš„ç±»å
+        // ´óĞ´¿ªÍ·µÄÀàÃû
         String className = StringUtils.toCapitalizeCamelCase(genConfig.getTableName());
-        // å°å†™å¼€å¤´çš„ç±»å
+        // Ğ¡Ğ´¿ªÍ·µÄÀàÃû
         String changeClassName = StringUtils.toCamelCase(genConfig.getTableName());
-        // åˆ¤æ–­æ˜¯å¦å»é™¤è¡¨å‰ç¼€
+        // ÅĞ¶ÏÊÇ·ñÈ¥³ı±íÇ°×º
         if (StringUtils.isNotEmpty(genConfig.getPrefix())) {
             className = StringUtils.toCapitalizeCamelCase(StrUtil.removePrefix(genConfig.getTableName(), genConfig.getPrefix()));
             changeClassName = StringUtils.toCamelCase(StrUtil.removePrefix(genConfig.getTableName(), genConfig.getPrefix()));
             changeClassName = StringUtils.uncapitalize(changeClassName);
         }
-        // ä¿å­˜ç±»å
+        // ±£´æÀàÃû
         genMap.put("className", className);
-        // ä¿å­˜å°å†™å¼€å¤´çš„ç±»å
+        // ±£´æĞ¡Ğ´¿ªÍ·µÄÀàÃû
         genMap.put("changeClassName", changeClassName);
-        // å­˜åœ¨ Timestamp å­—æ®µ
+        // ´æÔÚ Timestamp ×Ö¶Î
         genMap.put("hasTimestamp", false);
-        // æŸ¥è¯¢ç±»ä¸­å­˜åœ¨ Timestamp å­—æ®µ
+        // ²éÑ¯ÀàÖĞ´æÔÚ Timestamp ×Ö¶Î
         genMap.put("queryHasTimestamp", false);
-        // å­˜åœ¨ BigDecimal å­—æ®µ
+        // ´æÔÚ BigDecimal ×Ö¶Î
         genMap.put("hasBigDecimal", false);
-        // æŸ¥è¯¢ç±»ä¸­å­˜åœ¨ BigDecimal å­—æ®µ
+        // ²éÑ¯ÀàÖĞ´æÔÚ BigDecimal ×Ö¶Î
         genMap.put("queryHasBigDecimal", false);
-        // æ˜¯å¦éœ€è¦åˆ›å»ºæŸ¥è¯¢
+        // ÊÇ·ñĞèÒª´´½¨²éÑ¯
         genMap.put("hasQuery", false);
-        // è‡ªå¢ä¸»é”®
+        // ×ÔÔöÖ÷¼ü
         genMap.put("auto", false);
-        // å­˜åœ¨å­—å…¸
+        // ´æÔÚ×Öµä
         genMap.put("hasDict", false);
-        // å­˜åœ¨æ—¥æœŸæ³¨è§£
+        // ´æÔÚÈÕÆÚ×¢½â
         genMap.put("hasDateAnnotation", false);
-        // ä¿å­˜å­—æ®µä¿¡æ¯
+        // ±£´æ×Ö¶ÎĞÅÏ¢
         List<Map<String, Object>> columns = new ArrayList<>();
-        // ä¿å­˜æŸ¥è¯¢å­—æ®µçš„ä¿¡æ¯
+        // ±£´æ²éÑ¯×Ö¶ÎµÄĞÅÏ¢
         List<Map<String, Object>> queryColumns = new ArrayList<>();
-        // å­˜å‚¨å­—å…¸ä¿¡æ¯
+        // ´æ´¢×ÖµäĞÅÏ¢
         List<String> dicts = new ArrayList<>();
-        // å­˜å‚¨ between ä¿¡æ¯
+        // ´æ´¢ between ĞÅÏ¢
         List<Map<String, Object>> betweens = new ArrayList<>();
-        // å­˜å‚¨ä¸ä¸ºç©ºçš„å­—æ®µä¿¡æ¯
+        // ´æ´¢²»Îª¿ÕµÄ×Ö¶ÎĞÅÏ¢
         List<Map<String, Object>> isNotNullColumns = new ArrayList<>();
 
         for (ColumnInfo column : columnInfos) {
             Map<String, Object> listMap = new HashMap<>(16);
-            // å­—æ®µæè¿°
+            // ×Ö¶ÎÃèÊö
             listMap.put("remark", column.getRemark());
-            // å­—æ®µç±»å‹
+            // ×Ö¶ÎÀàĞÍ
             listMap.put("columnKey", column.getKeyType());
-            // ä¸»é”®ç±»å‹
+            // Ö÷¼üÀàĞÍ
             String colType = ColUtil.cloToJava(column.getColumnType());
-            // å°å†™å¼€å¤´çš„å­—æ®µå
+            // Ğ¡Ğ´¿ªÍ·µÄ×Ö¶ÎÃû
             String changeColumnName = StringUtils.toCamelCase(column.getColumnName());
-            // å¤§å†™å¼€å¤´çš„å­—æ®µå
+            // ´óĞ´¿ªÍ·µÄ×Ö¶ÎÃû
             String capitalColumnName = StringUtils.toCapitalizeCamelCase(column.getColumnName());
             if (PK.equals(column.getKeyType())) {
-                // å­˜å‚¨ä¸»é”®ç±»å‹
+                // ´æ´¢Ö÷¼üÀàĞÍ
                 genMap.put("pkColumnType", colType);
-                // å­˜å‚¨å°å†™å¼€å¤´çš„å­—æ®µå
+                // ´æ´¢Ğ¡Ğ´¿ªÍ·µÄ×Ö¶ÎÃû
                 genMap.put("pkChangeColName", changeColumnName);
-                // å­˜å‚¨å¤§å†™å¼€å¤´çš„å­—æ®µå
+                // ´æ´¢´óĞ´¿ªÍ·µÄ×Ö¶ÎÃû
                 genMap.put("pkCapitalColName", capitalColumnName);
             }
-            // æ˜¯å¦å­˜åœ¨ Timestamp ç±»å‹çš„å­—æ®µ
+            // ÊÇ·ñ´æÔÚ Timestamp ÀàĞÍµÄ×Ö¶Î
             if (TIMESTAMP.equals(colType)) {
                 genMap.put("hasTimestamp", true);
             }
-            // æ˜¯å¦å­˜åœ¨ BigDecimal ç±»å‹çš„å­—æ®µ
+            // ÊÇ·ñ´æÔÚ BigDecimal ÀàĞÍµÄ×Ö¶Î
             if (BIGDECIMAL.equals(colType)) {
                 genMap.put("hasBigDecimal", true);
             }
-            // ä¸»é”®æ˜¯å¦è‡ªå¢
+            // Ö÷¼üÊÇ·ñ×ÔÔö
             if (EXTRA.equals(column.getExtra())) {
                 genMap.put("auto", true);
             }
-            // ä¸»é”®å­˜åœ¨å­—å…¸
+            // Ö÷¼ü´æÔÚ×Öµä
             if (StringUtils.isNotBlank(column.getDictName())) {
                 genMap.put("hasDict", true);
                 if(!dicts.contains(column.getDictName()))
                     dicts.add(column.getDictName());
             }
 
-            // å­˜å‚¨å­—æ®µç±»å‹
+            // ´æ´¢×Ö¶ÎÀàĞÍ
             listMap.put("columnType", colType);
-            // å­˜å‚¨å­—åŸå§‹æ®µåç§°
+            // ´æ´¢×ÖÔ­Ê¼¶ÎÃû³Æ
             listMap.put("columnName", column.getColumnName());
-            // ä¸ä¸ºç©º
+            // ²»Îª¿Õ
             listMap.put("istNotNull", column.getNotNull());
-            // å­—æ®µåˆ—è¡¨æ˜¾ç¤º
+            // ×Ö¶ÎÁĞ±íÏÔÊ¾
             listMap.put("columnShow", column.getListShow());
-            // è¡¨å•æ˜¾ç¤º
+            // ±íµ¥ÏÔÊ¾
             listMap.put("formShow", column.getFormShow());
-            // è¡¨å•ç»„ä»¶ç±»å‹
+            // ±íµ¥×é¼şÀàĞÍ
             listMap.put("formType", StringUtils.isNotBlank(column.getFormType()) ? column.getFormType() : "Input");
-            // å°å†™å¼€å¤´çš„å­—æ®µåç§°
+            // Ğ¡Ğ´¿ªÍ·µÄ×Ö¶ÎÃû³Æ
             listMap.put("changeColumnName", changeColumnName);
-            //å¤§å†™å¼€å¤´çš„å­—æ®µåç§°
+            //´óĞ´¿ªÍ·µÄ×Ö¶ÎÃû³Æ
             listMap.put("capitalColumnName", capitalColumnName);
-            // å­—å…¸åç§°
+            // ×ÖµäÃû³Æ
             listMap.put("dictName", column.getDictName());
-            // æ—¥æœŸæ³¨è§£
+            // ÈÕÆÚ×¢½â
             listMap.put("dateAnnotation", column.getDateAnnotation());
             if (StringUtils.isNotBlank(column.getDateAnnotation())) {
                 genMap.put("hasDateAnnotation", true);
             }
-            // æ·»åŠ éç©ºå­—æ®µä¿¡æ¯
+            // Ìí¼Ó·Ç¿Õ×Ö¶ÎĞÅÏ¢
             if (column.getNotNull()) {
                 isNotNullColumns.add(listMap);
             }
-            // åˆ¤æ–­æ˜¯å¦æœ‰æŸ¥è¯¢ï¼Œå¦‚æœ‰åˆ™æŠŠæŸ¥è¯¢çš„å­—æ®µsetè¿›columnQuery
+            // ÅĞ¶ÏÊÇ·ñÓĞ²éÑ¯£¬ÈçÓĞÔò°Ñ²éÑ¯µÄ×Ö¶Îset½øcolumnQuery
             if (!StringUtils.isBlank(column.getQueryType())) {
-                // æŸ¥è¯¢ç±»å‹
+                // ²éÑ¯ÀàĞÍ
                 listMap.put("queryType", column.getQueryType());
-                // æ˜¯å¦å­˜åœ¨æŸ¥è¯¢
+                // ÊÇ·ñ´æÔÚ²éÑ¯
                 genMap.put("hasQuery", true);
                 if (TIMESTAMP.equals(colType)) {
-                    // æŸ¥è¯¢ä¸­å­˜å‚¨ Timestamp ç±»å‹
+                    // ²éÑ¯ÖĞ´æ´¢ Timestamp ÀàĞÍ
                     genMap.put("queryHasTimestamp", true);
                 }
                 if (BIGDECIMAL.equals(colType)) {
-                    // æŸ¥è¯¢ä¸­å­˜å‚¨ BigDecimal ç±»å‹
+                    // ²éÑ¯ÖĞ´æ´¢ BigDecimal ÀàĞÍ
                     genMap.put("queryHasBigDecimal", true);
                 }
                 if ("between".equalsIgnoreCase(column.getQueryType())) {
                     betweens.add(listMap);
                 } else {
-                    // æ·»åŠ åˆ°æŸ¥è¯¢åˆ—è¡¨ä¸­
+                    // Ìí¼Óµ½²éÑ¯ÁĞ±íÖĞ
                     queryColumns.add(listMap);
                 }
             }
-            // æ·»åŠ åˆ°å­—æ®µåˆ—è¡¨ä¸­
+            // Ìí¼Óµ½×Ö¶ÎÁĞ±íÖĞ
             columns.add(listMap);
         }
-        // ä¿å­˜å­—æ®µåˆ—è¡¨
+        // ±£´æ×Ö¶ÎÁĞ±í
         genMap.put("columns", columns);
-        // ä¿å­˜æŸ¥è¯¢åˆ—è¡¨
+        // ±£´æ²éÑ¯ÁĞ±í
         genMap.put("queryColumns", queryColumns);
-        // ä¿å­˜å­—æ®µåˆ—è¡¨
+        // ±£´æ×Ö¶ÎÁĞ±í
         genMap.put("dicts", dicts);
-        // ä¿å­˜æŸ¥è¯¢åˆ—è¡¨
+        // ±£´æ²éÑ¯ÁĞ±í
         genMap.put("betweens", betweens);
-        // ä¿å­˜éç©ºå­—æ®µä¿¡æ¯
+        // ±£´æ·Ç¿Õ×Ö¶ÎĞÅÏ¢
         genMap.put("isNotNullColumns", isNotNullColumns);
         return genMap;
     }
 
     /**
-     * å®šä¹‰åç«¯æ–‡ä»¶è·¯å¾„ä»¥åŠåç§°
+     * ¶¨Òåºó¶ËÎÄ¼şÂ·¾¶ÒÔ¼°Ãû³Æ
      */
     private static String getAdminFilePath(String templateName, GenConfig genConfig, String className, String rootPath) {
         String projectPath = rootPath + File.separator + genConfig.getModuleName();
@@ -390,7 +390,7 @@ public class GenUtil {
     }
 
     /**
-     * å®šä¹‰å‰ç«¯æ–‡ä»¶è·¯å¾„ä»¥åŠåç§°
+     * ¶¨ÒåÇ°¶ËÎÄ¼şÂ·¾¶ÒÔ¼°Ãû³Æ
      */
     private static String getFrontFilePath(String templateName, String apiPath, String path, String apiName) {
 
@@ -406,7 +406,7 @@ public class GenUtil {
     }
 
     private static void genFile(File file, Template template, Map<String, Object> map) throws IOException {
-        // ç”Ÿæˆç›®æ ‡æ–‡ä»¶
+        // Éú³ÉÄ¿±êÎÄ¼ş
         Writer writer = null;
         try {
             FileUtil.touch(file);
