@@ -28,12 +28,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.*;
 import java.io.IOException;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 
 /**
 * @website https://el-admin.vip
 * @author itxc
-* @date 2022-06-17
+* @date 2022-06-18
 **/
 @RestController
 @RequiredArgsConstructor
@@ -57,6 +58,14 @@ public class CarInfoController {
     @PreAuthorize("@el.check('carInfo:list')")
     public ResponseEntity<Object> queryCarInfo(CarInfoQueryCriteria criteria, Pageable pageable){
         return new ResponseEntity<>(carInfoService.queryAll(criteria,pageable),HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    @Log("查询车辆管理接口(不分页)")
+    @ApiOperation("查询车辆管理接口(不分页)")
+//    @PreAuthorize("@el.check('carInfo:list')")
+    public ResponseEntity<Object> list(CarInfoQueryCriteria criteria){
+        return new ResponseEntity<>(carInfoService.queryAll(criteria).stream().filter(carInfo -> "1".equals(carInfo.getIsRent())).collect(Collectors.toList()),HttpStatus.OK);
     }
 
     @PostMapping

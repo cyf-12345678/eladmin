@@ -15,9 +15,9 @@
 */
 package me.zhengjie.gen.service;
 
-import me.zhengjie.gen.domain.CarInfo;
-import me.zhengjie.gen.service.dto.CarInfoDto;
-import me.zhengjie.gen.service.dto.CarInfoQueryCriteria;
+import me.zhengjie.gen.domain.CustomerInfo;
+import me.zhengjie.gen.service.dto.CustomerInfoDto;
+import me.zhengjie.gen.service.dto.CustomerInfoQueryCriteria;
 import org.springframework.data.domain.Pageable;
 import java.util.Map;
 import java.util.List;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 * @author itxc
 * @date 2022-06-18
 **/
-public interface CarInfoService {
+public interface CustomerInfoService {
 
     /**
     * 查询数据分页
@@ -38,34 +38,34 @@ public interface CarInfoService {
     * @param pageable 分页参数
     * @return Map<String,Object>
     */
-    Map<String,Object> queryAll(CarInfoQueryCriteria criteria, Pageable pageable);
+    Map<String,Object> queryAll(CustomerInfoQueryCriteria criteria, Pageable pageable);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
-    * @return List<CarInfoDto>
+    * @return List<CustomerInfoDto>
     */
-    List<CarInfoDto> queryAll(CarInfoQueryCriteria criteria);
+    List<CustomerInfoDto> queryAll(CustomerInfoQueryCriteria criteria);
 
     /**
      * 根据ID查询
      * @param id ID
-     * @return CarInfoDto
+     * @return CustomerInfoDto
      */
-    CarInfoDto findById(Long id);
+    CustomerInfoDto findById(Long id);
 
     /**
     * 创建
     * @param resources /
-    * @return CarInfoDto
+    * @return CustomerInfoDto
     */
-    CarInfoDto create(CarInfo resources);
+    CustomerInfoDto create(CustomerInfo resources);
 
     /**
     * 编辑
     * @param resources /
     */
-    void update(CarInfo resources);
+    void update(CustomerInfo resources);
 
     /**
     * 多选删除
@@ -79,5 +79,5 @@ public interface CarInfoService {
     * @param response /
     * @throws IOException /
     */
-    void download(List<CarInfoDto> all, HttpServletResponse response) throws IOException;
+    void download(List<CustomerInfoDto> all, HttpServletResponse response) throws IOException;
 }

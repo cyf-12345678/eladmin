@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.zhengjie.gen.dao.CarRentalInfoMapper">
+    <select id="selectAll" resultType="me.zhengjie.gen.service.dto.CarRentalInfoDto">
+        select b.name,
+               b.user_phone,
+               b.user_certifcode,
+               a.id,
+               a.car_type,
+               a.car_brand,
+               a.car_code,
+               a.car_rental_fee,
+               a.car_deposit,
+               a.is_damaged,
+               a.car_compensate
+        from car_info a
+                 left join customer_info b on a.customer_id = b.id
+        <where>
+            <if test="query.carBrand != null">
+                and a.car_brand = #{query.carBrand}
+            </if>
+            <if test="query.carType != null">
+                and a.car_type = #{query.carType}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -22,7 +22,7 @@ import me.zhengjie.annotation.Query;
 /**
 * @website https://el-admin.vip
 * @author itxc
-* @date 2022-06-17
+* @date 2022-06-18
 **/
 @Data
 public class CarInfoQueryCriteria{
@@ -31,15 +31,7 @@ public class CarInfoQueryCriteria{
     @Query
     private Integer carType;
 
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String carOwner;
-
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
-    private String carPhone;
-
-    /** 模糊 */
-    @Query(type = Query.Type.INNER_LIKE)
+    /** 精确 */
+    @Query
     private Integer carBrand;
 }

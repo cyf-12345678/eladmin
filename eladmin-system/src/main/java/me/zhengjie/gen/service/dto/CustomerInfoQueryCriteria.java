@@ -13,20 +13,25 @@
 *  See the License for the specific language governing permissions and
 *  limitations under the License.
 */
-package me.zhengjie.gen.service.mapstruct;
+package me.zhengjie.gen.service.dto;
 
-import me.zhengjie.base.BaseMapper;
-import me.zhengjie.gen.domain.CarInfo;
-import me.zhengjie.gen.service.dto.CarInfoDto;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import lombok.Data;
+import java.util.List;
+import me.zhengjie.annotation.Query;
 
 /**
 * @website https://el-admin.vip
 * @author itxc
 * @date 2022-06-18
 **/
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface CarInfoMapper extends BaseMapper<CarInfoDto, CarInfo> {
+@Data
+public class CustomerInfoQueryCriteria{
 
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
+    private String name;
+
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
+    private String userPhone;
 }

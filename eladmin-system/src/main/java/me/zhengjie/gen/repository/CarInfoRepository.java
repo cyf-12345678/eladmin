@@ -16,13 +16,18 @@
 package me.zhengjie.gen.repository;
 
 import me.zhengjie.gen.domain.CarInfo;
+import me.zhengjie.gen.service.dto.CarRentalInfoDto;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
 * @website https://el-admin.vip
 * @author itxc
-* @date 2022-06-17
+* @date 2022-06-18
 **/
 public interface CarInfoRepository extends JpaRepository<CarInfo, Long>, JpaSpecificationExecutor<CarInfo> {
 }

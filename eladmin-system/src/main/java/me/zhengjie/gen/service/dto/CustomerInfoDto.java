@@ -17,7 +17,6 @@ package me.zhengjie.gen.service.dto;
 
 import lombok.Data;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import java.io.Serializable;
 
 /**
@@ -27,7 +26,7 @@ import java.io.Serializable;
 * @date 2022-06-18
 **/
 @Data
-public class CarInfoDto implements Serializable {
+public class CustomerInfoDto implements Serializable {
 
     /** id */
     private Long id;
@@ -41,12 +40,6 @@ public class CarInfoDto implements Serializable {
     /** 证件号码 */
     private String userCertifcode;
 
-    /** 车辆类型 */
-    private Integer carType;
-
-    /** 车辆品牌 */
-    private Integer carBrand;
-
     /** 创建人 */
     private Long createUser;
 
@@ -59,28 +52,12 @@ public class CarInfoDto implements Serializable {
     /** 更新时间 */
     private Timestamp updateTime;
 
-    /** 客户id */
-    private Long customerId;
+    /** 租车时长 */
+    private Integer carRentalTime;
 
-    /** 是否损坏 */
-    private Integer isDamaged;
+    /** 租车开始时间 */
+    private Timestamp carRentalStart;
 
-    /** 车牌号 */
-    private String carCode;
-
-    /** 座位数 */
-    private Long carSeat;
-
-    /** 每小时租车费 */
-    private BigDecimal carRentalFee;
-
-    /** 押金 */
-    private BigDecimal carDeposit;
-
-    /** 是否被租 */
-    private Integer isRent;
-
-    /** 损坏赔偿 */
-    private BigDecimal carCompensate;
-
+    /** 租车结束时间 */
+    private Timestamp carRentalEnd;
 }

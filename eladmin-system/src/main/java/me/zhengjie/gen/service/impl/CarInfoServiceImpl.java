@@ -39,9 +39,9 @@ import java.util.LinkedHashMap;
 
 /**
 * @website https://el-admin.vip
-* @description ·şÎñÊµÏÖ
+* @description æœåŠ¡å®ç°
 * @author itxc
-* @date 2022-06-17
+* @date 2022-06-18
 **/
 @Service
 @RequiredArgsConstructor
@@ -96,17 +96,20 @@ public class CarInfoServiceImpl implements CarInfoService {
         List<Map<String, Object>> list = new ArrayList<>();
         for (CarInfoDto carInfo : all) {
             Map<String,Object> map = new LinkedHashMap<>();
-            map.put("³µÁ¾ÀàĞÍ", carInfo.getCarType());
-            map.put("³µÖ÷ĞÕÃû", carInfo.getCarOwner());
-            map.put("ÁªÏµµç»°", carInfo.getCarPhone());
-            map.put("³µÅÆºÅ", carInfo.getCarCode());
-            map.put("³µÁ¾ÕÕÆ¬", carInfo.getCarPhoto());
-            map.put("³µÁ¾Æ·ÅÆ", carInfo.getCarBrand());
-            map.put("³µÉíÑÕÉ«", carInfo.getCarColor());
-            map.put("´´½¨ÈË", carInfo.getCreateUser());
-            map.put("´´½¨Ê±¼ä", carInfo.getCreateTime());
-            map.put("¸üĞÂÈË", carInfo.getUpdateUser());
-            map.put("¸üĞÂÊ±¼ä", carInfo.getUpdateTime());
+            map.put("è½¦è¾†ç±»å‹", carInfo.getCarType());
+            map.put("è½¦è¾†å“ç‰Œ", carInfo.getCarBrand());
+            map.put("åˆ›å»ºäºº", carInfo.getCreateUser());
+            map.put("åˆ›å»ºæ—¶é—´", carInfo.getCreateTime());
+            map.put("æ›´æ–°äºº", carInfo.getUpdateUser());
+            map.put("æ›´æ–°æ—¶é—´", carInfo.getUpdateTime());
+            map.put("å®¢æˆ·id", carInfo.getCustomerId());
+            map.put("æ˜¯å¦æŸå", carInfo.getIsDamaged());
+            map.put("è½¦ç‰Œå·", carInfo.getCarCode());
+            map.put("åº§ä½æ•°", carInfo.getCarSeat());
+            map.put("æ¯å°æ—¶ç§Ÿè½¦è´¹", carInfo.getCarRentalFee());
+            map.put("æŠ¼é‡‘", carInfo.getCarDeposit());
+            map.put("æ˜¯å¦è¢«ç§Ÿ", carInfo.getIsRent());
+            map.put("æŸåèµ”å¿", carInfo.getCarCompensate());
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);

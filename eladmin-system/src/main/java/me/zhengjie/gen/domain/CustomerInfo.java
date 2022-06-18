@@ -22,7 +22,6 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.sql.Timestamp;
-import java.math.BigDecimal;
 import java.io.Serializable;
 
 /**
@@ -33,8 +32,8 @@ import java.io.Serializable;
 **/
 @Entity
 @Data
-@Table(name="car_info")
-public class CarInfo implements Serializable {
+@Table(name="customer_info")
+public class CustomerInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,13 +41,17 @@ public class CarInfo implements Serializable {
     @ApiModelProperty(value = "id")
     private Long id;
 
-    @Column(name = "`car_type`")
-    @ApiModelProperty(value = "车辆类型")
-    private Integer carType;
+    @Column(name = "`name`")
+    @ApiModelProperty(value = "客户姓名")
+    private String name;
 
-    @Column(name = "`car_brand`")
-    @ApiModelProperty(value = "车辆品牌")
-    private Integer carBrand;
+    @Column(name = "`user_phone`")
+    @ApiModelProperty(value = "联系电话")
+    private String userPhone;
+
+    @Column(name = "`user_certifcode`")
+    @ApiModelProperty(value = "证件号码")
+    private String userCertifcode;
 
     @Column(name = "`create_user`",nullable = false)
     @NotNull
@@ -70,40 +73,19 @@ public class CarInfo implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private Timestamp updateTime;
 
-    @Column(name = "`customer_id`")
-    @ApiModelProperty(value = "客户id")
-    private Long customerId;
+    @Column(name = "`car_rental_Time`")
+    @ApiModelProperty(value = "租车时长")
+    private Integer carRentalTime;
 
-    @Column(name = "`is_damaged`")
-    @ApiModelProperty(value = "是否损坏")
-    private Integer isDamaged;
+    @Column(name = "`car_rental_start`")
+    @ApiModelProperty(value = "租车开始时间")
+    private Timestamp carRentalStart;
 
-    @Column(name = "`car_code`")
-    @ApiModelProperty(value = "车牌号")
-    private String carCode;
+    @Column(name = "`car_rental_end`")
+    @ApiModelProperty(value = "租车结束时间")
+    private Timestamp carRentalEnd;
 
-    @Column(name = "`car_seat`")
-    @ApiModelProperty(value = "座位数")
-    private Long carSeat;
-
-    @Column(name = "`car_rental_fee`",nullable = false)
-    @NotNull
-    @ApiModelProperty(value = "每小时租车费")
-    private BigDecimal carRentalFee;
-
-    @Column(name = "`car_deposit`")
-    @ApiModelProperty(value = "押金")
-    private BigDecimal carDeposit;
-
-    @Column(name = "`is_rent`")
-    @ApiModelProperty(value = "是否被租")
-    private Integer isRent;
-
-    @Column(name = "`car_compensate`")
-    @ApiModelProperty(value = "损坏赔偿")
-    private BigDecimal carCompensate;
-
-    public void copy(CarInfo source){
+    public void copy(CustomerInfo source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }
