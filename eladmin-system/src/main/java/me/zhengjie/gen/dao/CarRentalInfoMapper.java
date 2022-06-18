@@ -20,4 +20,6 @@ import java.util.List;
 public interface CarRentalInfoMapper extends BaseMapper<CarRentalInfoDto, CarRentalInfo> {
 
     List<CarRentalInfoDto> selectAll(@Param("query") CarInfoQueryCriteria criteria, Pageable pageable);
+
+    CarRentalInfoDto findById(Long id);
 }

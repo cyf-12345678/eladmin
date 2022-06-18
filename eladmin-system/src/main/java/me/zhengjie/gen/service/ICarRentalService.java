@@ -39,9 +39,8 @@ public interface ICarRentalService {
     /**
      * 创建
      * @param resources /
-     * @return CarRentalInfoDto
      */
-    CarRentalInfoDto create(CarRentalInfo resources);
+    void create(CarRentalInfo resources);
 
     /**
      * 编辑

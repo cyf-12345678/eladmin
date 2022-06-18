@@ -55,7 +55,8 @@ public class CarRentalController {
     @ApiOperation("新增租车管理接口")
     @PreAuthorize("@el.check('carRentalInfo:add')")
     public ResponseEntity<Object> createCarInfo(@Validated @RequestBody CarRentalInfo resources){
-        return new ResponseEntity<>(carRentalService.create(resources), HttpStatus.CREATED);
+        carRentalService.create(resources);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping

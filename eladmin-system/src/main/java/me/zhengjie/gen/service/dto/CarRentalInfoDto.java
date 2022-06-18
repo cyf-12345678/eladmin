@@ -1,7 +1,9 @@
 package me.zhengjie.gen.service.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -14,6 +16,9 @@ public class CarRentalInfoDto implements Serializable {
 
     /** 用户id */
     private Long id;
+
+    /** 客户id */
+    private Long customerId;
 
     /** 客户姓名 */
     private String name;
@@ -38,6 +43,9 @@ public class CarRentalInfoDto implements Serializable {
 
     /** 押金 */
     private BigDecimal carDeposit;
+
+    /** 是否被租 */
+    private Integer isRent;
 
     /** 是否损坏 */
     private Integer isDamaged;
