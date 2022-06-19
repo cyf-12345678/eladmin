@@ -15,6 +15,7 @@
 */
 package me.zhengjie.gen.service.impl;
 
+import me.zhengjie.gen.dao.CustomerInfoDao;
 import me.zhengjie.gen.domain.CustomerInfo;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
@@ -50,6 +51,8 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
     private final CustomerInfoRepository customerInfoRepository;
     private final CustomerInfoMapper customerInfoMapper;
 
+    private final CustomerInfoDao customerInfoDao;
+
     @Override
     public Map<String,Object> queryAll(CustomerInfoQueryCriteria criteria, Pageable pageable){
         Page<CustomerInfo> page = customerInfoRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
@@ -58,7 +61,8 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
 
     @Override
     public List<CustomerInfoDto> queryAll(CustomerInfoQueryCriteria criteria){
-        return customerInfoMapper.toDto(customerInfoRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
+        List<CustomerInfoDto> list = customerInfoDao.queryAll();
+        return list;
     }
 
     @Override

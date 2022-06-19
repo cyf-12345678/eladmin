@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2022/6/18
  */
 @Repository
-public interface CarRentalInfoMapper extends BaseMapper<CarRentalInfoDto, CarRentalInfo> {
+public interface CarRentalInfoDao extends BaseMapper<CarRentalInfoDto, CarRentalInfo> {
 
     List<CarRentalInfoDto> selectAll(@Param("query") CarInfoQueryCriteria criteria, Pageable pageable);
 

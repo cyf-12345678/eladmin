@@ -29,8 +29,6 @@ public class CarRentalInfo implements Serializable {
     @ApiModelProperty(value = "客户id")
     private Long customerId;
 
-    @Transient
-
 
     public void copy(CarRentalInfo source){
         BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));

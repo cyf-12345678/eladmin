@@ -65,7 +65,7 @@ public class CarInfoController {
     @ApiOperation("查询车辆管理接口(不分页)")
 //    @PreAuthorize("@el.check('carInfo:list')")
     public ResponseEntity<Object> list(CarInfoQueryCriteria criteria){
-        return new ResponseEntity<>(carInfoService.queryAll(criteria).stream().filter(carInfo -> "1".equals(carInfo.getIsRent())).collect(Collectors.toList()),HttpStatus.OK);
+        return new ResponseEntity<>(carInfoService.queryAll(criteria).stream().filter(carInfo -> carInfo.getIsRent() == 0).collect(Collectors.toList()),HttpStatus.OK);
     }
 
     @PostMapping

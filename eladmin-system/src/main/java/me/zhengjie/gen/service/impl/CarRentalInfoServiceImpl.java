@@ -1,7 +1,7 @@
 package me.zhengjie.gen.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.gen.dao.CarRentalInfoMapper;
+import me.zhengjie.gen.dao.CarRentalInfoDao;
 import me.zhengjie.gen.domain.CarInfo;
 import me.zhengjie.gen.domain.CarRentalInfo;
 import me.zhengjie.gen.domain.CustomerInfo;
@@ -34,7 +34,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CarRentalInfoServiceImpl implements ICarRentalService {
 
-    private final CarRentalInfoMapper carRentalInfoMapper;
+    private final CarRentalInfoDao carRentalInfoDao;
 
     private final CarInfoRepository carInfoRepository;
     private final CarInfoMapper carInfoMapper;
@@ -44,7 +44,7 @@ public class CarRentalInfoServiceImpl implements ICarRentalService {
 
     @Override
     public Map<String, Object> queryAll(CarInfoQueryCriteria criteria, Pageable pageable) {
-        List<CarRentalInfoDto> list = carRentalInfoMapper.selectAll(criteria, pageable);
+        List<CarRentalInfoDto> list = carRentalInfoDao.selectAll(criteria, pageable);
         return PageUtil.toPage(list, list.size());
     }
 
@@ -56,7 +56,7 @@ public class CarRentalInfoServiceImpl implements ICarRentalService {
     @Override
     @Transactional
     public CarRentalInfoDto findById(Long id) {
-        CarRentalInfoDto carRentalInfoDto = carRentalInfoMapper.findById(id);
+        CarRentalInfoDto carRentalInfoDto = carRentalInfoDao.findById(id);
         ValidationUtil.isNull(carRentalInfoDto.getId(),"CarRentalInfoDto","id",id);
         return carRentalInfoDto;
     }
@@ -76,6 +76,7 @@ public class CarRentalInfoServiceImpl implements ICarRentalService {
 
         CustomerInfo customerInfo = customerInfoRepository.findById(resources.getCustomerId()).orElseGet(CustomerInfo::new);
         ValidationUtil.isNull(customerInfo.getId(), "CustomerInfo", "id", resources.getCustomerId());
+        customerInfo.setCarRentalStart(new Timestamp(new Date().getTime()));
         customerInfoRepository.save(customerInfo);
     }
 
