@@ -80,4 +80,7 @@ public interface CarInfoService {
     * @throws IOException /
     */
     void download(List<CarInfoDto> all, HttpServletResponse response) throws IOException;
+
+    void doSure(CarInfo resources);
+
 }

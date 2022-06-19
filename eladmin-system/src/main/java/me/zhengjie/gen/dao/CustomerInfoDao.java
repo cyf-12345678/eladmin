@@ -15,4 +15,8 @@ import java.util.List;
 public interface CustomerInfoDao extends BaseMapper<CustomerInfoDto, CustomerInfo> {
 
     List<CustomerInfoDto> queryAll();
+
+    CustomerInfo getById(Long customerId);
+
+    void updateById(CustomerInfo customerInfo);
 }

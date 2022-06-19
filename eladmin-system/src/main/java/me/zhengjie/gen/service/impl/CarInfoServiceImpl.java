@@ -15,9 +15,9 @@
 */
 package me.zhengjie.gen.service.impl;
 
+import me.zhengjie.gen.dao.CarInfoDao;
 import me.zhengjie.gen.domain.CarInfo;
-import me.zhengjie.utils.ValidationUtil;
-import me.zhengjie.utils.FileUtil;
+import me.zhengjie.utils.*;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.gen.repository.CarInfoRepository;
 import me.zhengjie.gen.service.CarInfoService;
@@ -28,14 +28,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import me.zhengjie.utils.PageUtil;
-import me.zhengjie.utils.QueryHelp;
-import java.util.List;
-import java.util.Map;
+
+import java.sql.Timestamp;
+import java.util.*;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
 * @website https://el-admin.vip
@@ -49,6 +46,8 @@ public class CarInfoServiceImpl implements CarInfoService {
 
     private final CarInfoRepository carInfoRepository;
     private final CarInfoMapper carInfoMapper;
+
+    private final CarInfoDao carInfoDao;
 
     @Override
     public Map<String,Object> queryAll(CarInfoQueryCriteria criteria, Pageable pageable){
@@ -113,5 +112,24 @@ public class CarInfoServiceImpl implements CarInfoService {
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
+    }
+
+    @Override
+    @Transactional
+    public void doSure(CarInfo resources) {
+        CarInfo carInfo = carInfoDao.getById(resources.getId());
+
+
+        if (resources.getCarCompensate() == null && "".equals(resources.getCarCompensate())) {
+            carInfo.setIsRent(0);
+            carInfo.setIsDamaged(0);
+        } else {
+            carInfo.setIsRent(0);
+            carInfo.setIsDamaged(1);
+            carInfo.setCarCompensate(resources.getCarCompensate());
+        }
+        carInfo.setUpdateUser(SecurityUtils.getCurrentUserId());
+        carInfo.setUpdateTime(new Timestamp(new Date().getTime()));
+        carInfoDao.updateById(carInfo);
     }
 }

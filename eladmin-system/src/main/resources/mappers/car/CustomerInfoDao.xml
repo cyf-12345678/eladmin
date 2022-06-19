@@ -6,4 +6,16 @@
 <select id="queryAll" resultType="me.zhengjie.gen.service.dto.CustomerInfoDto">
     select * from customer_info
     </select>
+
+<select id="getById" resultType="me.zhengjie.gen.domain.CustomerInfo">
+    select * from customer_info where id = #{customerId}
+    </select>
+
+<update id="updateById">
+    update customer_info set name = #{name}, user_phone = #{userPhone},
+    user_certifcode = #{userCertifcode}, create_user = #{createUser}, create_time = #{createTime},
+    update_user = #{updateUser}, update_time = #{updateTime}, car_rental_Time = #{carRentalTime},
+    car_rental_start = #{carRentalStart}, car_rental_end = #{carRentalEnd}
+    where id = #{id}
+    </update>
 </mapper>

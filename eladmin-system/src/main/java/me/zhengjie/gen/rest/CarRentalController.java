@@ -68,6 +68,16 @@ public class CarRentalController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+    @PutMapping("/{id}")
+    @Log("租车管理还车接口")
+    @ApiOperation("租车管理还车接口")
+    @PreAuthorize("@el.check('carRentalInfo:edit')")
+    public ResponseEntity<Object> editMethod(@PathVariable("id") Long id){
+        carRentalService.editMethod(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping
     @Log("删除租车管理接口")
     @ApiOperation("删除租车管理接口")

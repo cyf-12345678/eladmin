@@ -75,7 +75,7 @@ public class CustomerInfo implements Serializable {
 
     @Column(name = "`car_rental_Time`")
     @ApiModelProperty(value = "租车时长")
-    private Integer carRentalTime;
+    private Double carRentalTime;
 
     @Column(name = "`car_rental_start`")
     @ApiModelProperty(value = "租车开始时间")

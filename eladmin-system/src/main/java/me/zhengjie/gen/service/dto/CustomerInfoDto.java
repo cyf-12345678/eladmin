@@ -53,7 +53,7 @@ public class CustomerInfoDto implements Serializable {
     private Timestamp updateTime;
 
     /** 租车时长 */
-    private Integer carRentalTime;
+    private Double carRentalTime;
 
     /** 租车开始时间 */
     private Timestamp carRentalStart;

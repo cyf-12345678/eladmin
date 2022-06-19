@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.zhengjie.gen.dao.CarInfoDao">
+
+<select id="getById" resultType="me.zhengjie.gen.domain.CarInfo">
+    select * from car_info where id = #{id}
+    </select>
+
+<update id="updateById">
+    update car_info set car_type = #{carType}, car_brand = #{carBrand},
+    customer_id = #{customerId}, create_user = #{createUser}, create_time = #{createTime},
+    update_user = #{updateUser}, update_time = #{updateTime}, is_damaged = #{isDamaged},
+    car_code = #{carCode}, car_seat = #{carSeat}, car_rental_fee = #{carRentalFee}, car_deposit = #{carDeposit},
+    is_rent = #{isRent}, car_compensate = #{carCompensate}
+    where id = #{id}
+    </update>
+</mapper>

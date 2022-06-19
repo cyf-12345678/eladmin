@@ -61,4 +61,10 @@ public interface ICarRentalService {
      * @throws IOException /
      */
     void download(List<CarRentalInfoDto> all, HttpServletResponse response) throws IOException;
+
+    /**
+     * 还车
+     * @param id
+     */
+    void editMethod(Long id);
 }

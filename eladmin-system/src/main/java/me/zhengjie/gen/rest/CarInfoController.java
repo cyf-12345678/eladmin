@@ -85,6 +85,15 @@ public class CarInfoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/doSure")
+    @Log("车辆管理接口确认")
+    @ApiOperation("车辆管理接口确认")
+//    @PreAuthorize("@el.check('carInfo:edit')")
+    public ResponseEntity<Object> doSure(@Validated @RequestBody CarInfo resources){
+        carInfoService.doSure(resources);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @DeleteMapping
     @Log("删除车辆管理接口")
     @ApiOperation("删除车辆管理接口")
