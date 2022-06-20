@@ -17,16 +17,17 @@ package me.zhengjie.gen.service.dto;
 
 import lombok.Data;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.io.Serializable;
 
 /**
 * @website https://el-admin.vip
 * @description /
 * @author itxc
-* @date 2022-06-18
+* @date 2022-06-20
 **/
 @Data
-public class CustomerInfoDto implements Serializable {
+public class CarRentalOrderDto implements Serializable {
 
     /** id */
     private Long id;
@@ -40,8 +41,44 @@ public class CustomerInfoDto implements Serializable {
     /** 证件号码 */
     private String userCertifcode;
 
-    /** 用户来源 */
-    private Integer userSource;
+    /** 租车时长 */
+    private Double carRentalTime;
+
+    /** 租车开始时间 */
+    private Timestamp carRentalStart;
+
+    /** 租车结束时间 */
+    private Timestamp carRentalEnd;
+
+    /** 车辆类型(字典) */
+    private Integer carType;
+
+    /** 车牌号 */
+    private String carCode;
+
+    /** 座位数 */
+    private Long carSeat;
+
+    /** 车辆品牌（字典） */
+    private Integer carBrand;
+
+    /** 客户id */
+    private Long customerId;
+
+    /** 每小时租车费 */
+    private BigDecimal carRentalFee;
+
+    /** 押金 */
+    private BigDecimal carDeposit;
+
+    /** 是否被租 */
+    private Integer isRent;
+
+    /** 是否损坏 */
+    private Integer isDamaged;
+
+    /** 损坏赔偿 */
+    private BigDecimal carCompensate;
 
     /** 创建人 */
     private Long createUser;
@@ -55,12 +92,6 @@ public class CustomerInfoDto implements Serializable {
     /** 更新时间 */
     private Timestamp updateTime;
 
-    /** 租车时长 */
-    private Double carRentalTime;
-
-    /** 租车开始时间 */
-    private Timestamp carRentalStart;
-
-    /** 租车结束时间 */
-    private Timestamp carRentalEnd;
+    /** 用户来源 */
+    private Integer userSource;
 }

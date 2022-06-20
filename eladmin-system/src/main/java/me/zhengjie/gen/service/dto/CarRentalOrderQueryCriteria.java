@@ -16,51 +16,30 @@
 package me.zhengjie.gen.service.dto;
 
 import lombok.Data;
-import java.sql.Timestamp;
-import java.io.Serializable;
+import java.util.List;
+import me.zhengjie.annotation.Query;
 
 /**
 * @website https://el-admin.vip
-* @description /
 * @author itxc
-* @date 2022-06-18
+* @date 2022-06-20
 **/
 @Data
-public class CustomerInfoDto implements Serializable {
+public class CarRentalOrderQueryCriteria{
 
-    /** id */
-    private Long id;
-
-    /** 客户姓名 */
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
     private String name;
 
-    /** 联系电话 */
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
     private String userPhone;
 
-    /** 证件号码 */
+    /** 模糊 */
+    @Query(type = Query.Type.INNER_LIKE)
     private String userCertifcode;
 
-    /** 用户来源 */
-    private Integer userSource;
-
-    /** 创建人 */
-    private Long createUser;
-
-    /** 创建时间 */
-    private Timestamp createTime;
-
-    /** 更新人 */
-    private Long updateUser;
-
-    /** 更新时间 */
-    private Timestamp updateTime;
-
-    /** 租车时长 */
-    private Double carRentalTime;
-
-    /** 租车开始时间 */
-    private Timestamp carRentalStart;
-
-    /** 租车结束时间 */
-    private Timestamp carRentalEnd;
+    /** 精确 */
+    @Query
+    private String carCode;
 }

@@ -120,13 +120,13 @@ public class CarInfoServiceImpl implements CarInfoService {
         CarInfo carInfo = carInfoDao.getById(resources.getId());
 
 
-        if (resources.getCarCompensate() == null && "".equals(resources.getCarCompensate())) {
-            carInfo.setIsRent(0);
-            carInfo.setIsDamaged(0);
-        } else {
+        if (resources.getCarCompensate() != null) {
             carInfo.setIsRent(0);
             carInfo.setIsDamaged(1);
             carInfo.setCarCompensate(resources.getCarCompensate());
+        } else {
+            carInfo.setIsRent(0);
+            carInfo.setIsDamaged(0);
         }
         carInfo.setUpdateUser(SecurityUtils.getCurrentUserId());
         carInfo.setUpdateTime(new Timestamp(new Date().getTime()));

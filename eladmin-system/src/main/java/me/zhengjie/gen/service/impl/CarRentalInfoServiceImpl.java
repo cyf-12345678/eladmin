@@ -5,13 +5,17 @@ import me.zhengjie.gen.dao.CarRentalInfoDao;
 import me.zhengjie.gen.dao.CustomerInfoDao;
 import me.zhengjie.gen.domain.CarInfo;
 import me.zhengjie.gen.domain.CarRentalInfo;
+import me.zhengjie.gen.domain.CarRentalOrder;
 import me.zhengjie.gen.domain.CustomerInfo;
 import me.zhengjie.gen.repository.CarInfoRepository;
+import me.zhengjie.gen.repository.CarRentalOrderRepository;
 import me.zhengjie.gen.repository.CustomerInfoRepository;
 import me.zhengjie.gen.service.ICarRentalService;
 import me.zhengjie.gen.service.dto.CarInfoQueryCriteria;
 import me.zhengjie.gen.service.dto.CarRentalInfoDto;
+import me.zhengjie.gen.service.dto.CarRentalOrderDto;
 import me.zhengjie.gen.service.mapstruct.CarInfoMapper;
+import me.zhengjie.gen.service.mapstruct.CarRentalOrderMapper;
 import me.zhengjie.gen.service.mapstruct.CustomerInfoMapper;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.SecurityUtils;
@@ -48,6 +52,9 @@ public class CarRentalInfoServiceImpl implements ICarRentalService {
 
     private final CustomerInfoRepository customerInfoRepository;
     private final CustomerInfoMapper customerInfoMapper;
+
+    private final CarRentalOrderRepository carRentalOrderRepository;
+    private final CarRentalOrderMapper carRentalOrderMapper;
     
     private static final Logger log = LoggerFactory.getLogger(CarRentalInfoServiceImpl.class);
 
@@ -156,5 +163,9 @@ public class CarRentalInfoServiceImpl implements ICarRentalService {
         customerInfoDao.updateById(customerInfo);
 
 
+        CarRentalOrder carRentalOrder = new CarRentalOrder();
+        BeanUtils.copyProperties(customerInfo, carRentalOrder);
+        BeanUtils.copyProperties(save, carRentalOrder);
+        carRentalOrderRepository.save(carRentalOrder);
     }
 }

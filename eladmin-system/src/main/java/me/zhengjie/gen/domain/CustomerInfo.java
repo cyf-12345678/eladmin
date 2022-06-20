@@ -53,6 +53,10 @@ public class CustomerInfo implements Serializable {
     @ApiModelProperty(value = "证件号码")
     private String userCertifcode;
 
+    @Column(name = "`user_source`")
+    @ApiModelProperty(value = "用户来源")
+    private Integer userSource;
+
     @Column(name = "`create_user`",nullable = false)
     @NotNull
     @ApiModelProperty(value = "创建人")
