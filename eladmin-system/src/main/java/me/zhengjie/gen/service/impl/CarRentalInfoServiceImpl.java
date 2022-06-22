@@ -164,8 +164,8 @@ public class CarRentalInfoServiceImpl implements ICarRentalService {
 
 
         CarRentalOrder carRentalOrder = new CarRentalOrder();
-        BeanUtils.copyProperties(customerInfo, carRentalOrder);
         BeanUtils.copyProperties(save, carRentalOrder);
+        BeanUtils.copyProperties(customerInfo, carRentalOrder);
         carRentalOrderRepository.save(carRentalOrder);
     }
 }

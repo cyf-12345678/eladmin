@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="me.zhengjie.gen.dao.CarRentalOrderDao">
+    <select id="selectCount" resultType="me.zhengjie.gen.service.dto.CarRentalOrderDto">
+        select count(*) as thisYearRentCount
+        from car_rental_order a
+        where year(a.car_rental_end) = year(now())
+    </select>
+
+    <select id="selectMonthCount" resultType="me.zhengjie.gen.service.dto.CarRentalOrderDto">
+        SELECT
+            sum(case month(car_rental_end) when '1' then 1 else 0 end) as January,
+            sum(case month(car_rental_end) when '2' then 1 else 0 end) as February,
+            sum(case month(car_rental_end) when '3' then 1 else 0 end)  as March,
+            sum(case month(car_rental_end) when '4' then 1 else 0 end)  as April,
+            sum(case month(car_rental_end) when '5' then 1 else 0 end)  as May,
+            sum(case month(car_rental_end) when '6' then 1 else 0 end)  as June,
+            sum(case month(car_rental_end) when '7' then 1 else 0 end)  as July,
+            sum(case month(car_rental_end) when '8' then 1 else 0 end)  as August,
+            sum(case month(car_rental_end) when '9' then 1 else 0 end)  as September,
+            sum(case month(car_rental_end) when '10' then 1 else 0 end) as October,
+            sum(case month(car_rental_end) when '11' then 1 else 0 end) as November,
+            sum(case month(car_rental_end) when '12' then 1 else 0 end) as December
+        FROM car_rental_order a
+        WHERE year(car_rental_end) = year(now())
+        GROUP BY year(car_rental_end), MONTH(a.car_rental_end)
+    </select>
+</mapper>

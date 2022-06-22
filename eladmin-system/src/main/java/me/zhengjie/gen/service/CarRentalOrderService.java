@@ -80,4 +80,8 @@ public interface CarRentalOrderService {
     * @throws IOException /
     */
     void download(List<CarRentalOrderDto> all, HttpServletResponse response) throws IOException;
+
+    CarRentalOrderDto selectCount();
+
+    CarRentalOrderDto selectMonthCount();
 }

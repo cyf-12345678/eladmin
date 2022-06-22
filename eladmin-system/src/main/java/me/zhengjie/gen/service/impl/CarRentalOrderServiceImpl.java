@@ -15,6 +15,7 @@
 */
 package me.zhengjie.gen.service.impl;
 
+import me.zhengjie.gen.dao.CarRentalOrderDao;
 import me.zhengjie.gen.domain.CarRentalOrder;
 import me.zhengjie.utils.ValidationUtil;
 import me.zhengjie.utils.FileUtil;
@@ -30,6 +31,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.QueryHelp;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
@@ -49,6 +52,8 @@ public class CarRentalOrderServiceImpl implements CarRentalOrderService {
 
     private final CarRentalOrderRepository carRentalOrderRepository;
     private final CarRentalOrderMapper carRentalOrderMapper;
+
+    private final CarRentalOrderDao carRentalOrderDao;
 
     @Override
     public Map<String,Object> queryAll(CarRentalOrderQueryCriteria criteria, Pageable pageable){
@@ -120,5 +125,15 @@ public class CarRentalOrderServiceImpl implements CarRentalOrderService {
             list.add(map);
         }
         FileUtil.downloadExcel(list, response);
+    }
+
+    @Override
+    public CarRentalOrderDto selectCount() {
+        return carRentalOrderDao.selectCount();
+    }
+
+    @Override
+    public CarRentalOrderDto selectMonthCount() {
+        return carRentalOrderDao.selectMonthCount();
     }
 }

@@ -94,4 +94,33 @@ public class CarRentalOrderDto implements Serializable {
 
     /** 用户来源 */
     private Integer userSource;
+
+    /** 年租车总数 */
+    private Long thisYearRentCount;
+
+    private Long January;
+
+    private Long February;
+
+    private Long March;
+
+    private Long April;
+
+    private Long May;
+
+    private Long June;
+
+    private Long July;
+
+    private Long August;
+
+    private Long September;
+
+    private Long October;
+
+    private Long November;
+
+    private Long December;
+
+
 }

@@ -59,6 +59,23 @@ public class CarRentalOrderController {
         return new ResponseEntity<>(carRentalOrderService.queryAll(criteria,pageable),HttpStatus.OK);
     }
 
+    @GetMapping("/selectThisYearCount")
+    @Log("查询订单接口")
+    @ApiOperation("查询订单接口")
+//    @PreAuthorize("@el.check('carRentalOrder:list')")
+    public ResponseEntity<Object> selectCount(){
+        return new ResponseEntity<>(carRentalOrderService.selectCount(),HttpStatus.OK);
+    }
+
+
+    @GetMapping("/selectMonthCount")
+    @Log("查询订单接口")
+    @ApiOperation("查询订单接口")
+//    @PreAuthorize("@el.check('carRentalOrder:list')")
+    public ResponseEntity<Object> selectMonthCount(){
+        return new ResponseEntity<>(carRentalOrderService.selectMonthCount(),HttpStatus.OK);
+    }
+
     @PostMapping
     @Log("新增订单接口")
     @ApiOperation("新增订单接口")
