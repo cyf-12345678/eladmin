@@ -15,22 +15,29 @@
  */
 package me.zhengjie.modules.system.service.impl;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.alibaba.druid.support.json.JSONUtils;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.modules.system.domain.Dict;
 import me.zhengjie.modules.system.domain.DictDetail;
 import me.zhengjie.modules.system.repository.DictRepository;
 import me.zhengjie.modules.system.service.dto.DictDetailQueryCriteria;
+import me.zhengjie.modules.system.service.dto.DictDto;
 import me.zhengjie.utils.*;
 import me.zhengjie.modules.system.repository.DictDetailRepository;
 import me.zhengjie.modules.system.service.DictDetailService;
 import me.zhengjie.modules.system.service.dto.DictDetailDto;
 import me.zhengjie.modules.system.service.mapstruct.DictDetailMapper;
+import net.dreamlu.mica.core.utils.JsonUtil;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +57,18 @@ public class DictDetailServiceImpl implements DictDetailService {
 
     @Override
     public Map<String,Object> queryAll(DictDetailQueryCriteria criteria, Pageable pageable) {
+
+        String dictName = Const.SYS_DICT_KEY + criteria.getDictName();
+        List<DictDetailDto> dictDetailDtos = redisUtils.getCacheObject(dictName);
+        if (dictDetailDtos != null && dictDetailDtos.size() > 0) {
+            return PageUtil.toPage(dictDetailDtos, dictDetailDtos.size());
+        }
+
+
         Page<DictDetail> page = dictDetailRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        if (page.getContent() != null && page.getSize() > 0) {
+            redisUtils.setCacheObject(dictName, page.getContent());
+        }
         return PageUtil.toPage(page.map(dictDetailMapper::toDto));
     }
 
@@ -90,6 +108,6 @@ public class DictDetailServiceImpl implements DictDetailService {
 
     public void delCaches(DictDetail dictDetail){
         Dict dict = dictRepository.findById(dictDetail.getDict().getId()).orElseGet(Dict::new);
-        redisUtils.del(CacheKey.DICT_NAME + dict.getName());
+        redisUtils.del(Const.SYS_DICT_KEY + dict.getName());
     }
 }
